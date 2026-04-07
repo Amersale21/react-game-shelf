@@ -1,15 +1,57 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
+import { Routes, Route } from "react-router-dom";
+import NavigationBar from "./components/NavigationBar";
+import HomePage from "./pages/HomePage";
+import LibraryPage from "./pages/LibraryPage";
+import gamesData from "./data/games";
 import "./App.css";
 
 function App() {
+  const [library, setLibrary] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleAddToLibrary = (game) => {
+    const alreadyAdded = library.find((savedGame) => savedGame.id === game.id);
+
+    if (!alreadyAdded) {
+      setLibrary([...library, game]);
+    }
+  };
+
+  const handleRemoveFromLibrary = (gameId) => {
+    const updatedLibrary = library.filter((game) => game.id !== gameId);
+    setLibrary(updatedLibrary);
+  };
+
+  const filteredGames = gamesData.filter((game) =>
+    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
-      <h1>GameShelf</h1>
-      <p>Amer Salem's solution for keeping track of your game library</p>
-      <p>I cannot wait to get started!</p>
+      <NavigationBar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              games={filteredGames}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              handleAddToLibrary={handleAddToLibrary}
+            />
+          }
+        />
+        <Route
+          path="/library"
+          element={
+            <LibraryPage
+              library={library}
+              handleRemoveFromLibrary={handleRemoveFromLibrary}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 }
