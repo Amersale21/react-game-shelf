@@ -1,27 +1,69 @@
-import { Col, Container, Row } from "react-bootstrap";
-import GameCard from "../components/GameCard";
+import { useState } from "react";
+import { Alert, Container } from "react-bootstrap";
+import EmptyState from "../components/EmptyState";
+import GameList from "../components/GameList";
+import LibraryStats from "../components/LibraryStats";
+import PageHeader from "../components/PageHeader";
 
-function LibraryPage({ library, handleRemoveFromLibrary }) {
-    return (
-        <Container className="mt-4">
-            <h1 className="mb-3">My Library</h1>
+function LibraryPage({
+  library,
+  handleRemoveFromLibrary,
+  handleUpdateStatus,
+  handleUpdateRating,
+}) {
+  const [successMessage, setSuccessMessage] = useState("");
 
-            {library.length === 0 ? (
-                <p>You have not added any games yet.</p>
-            ) : (
-                <Row>
-                    {library.map((game) => (
-                        <Col key={game.id} xs={12} md={6} lg={4} className="mb-4">
-                            <GameCard
-                                game={game}
-                                handleRemoveFromLibrary={handleRemoveFromLibrary}
-                            />
-                        </Col>
-                    ))}
-                </Row>
-            )}
-        </Container>
-    );
+  const handleRemoveWithFeedback = (gameId) => {
+    const gameToRemove = library.find((game) => game.id === gameId);
+
+    handleRemoveFromLibrary(gameId);
+
+    if (gameToRemove) {
+      setSuccessMessage(`Removed ${gameToRemove.title} from your library.`);
+    }
+  };
+
+  return (
+    <Container fluid className="mt-4 game-page-container">
+      <PageHeader
+        title="My Library"
+        subtitle="View the games you added to your personal shelf, update your play status, rate your games, and track your progress."
+      />
+
+      {successMessage && (
+        <Alert
+          variant="warning"
+          dismissible
+          onClose={() => setSuccessMessage("")}
+          className="game-remove-alert"
+        >
+          {successMessage}
+        </Alert>
+      )}
+
+      {library.length === 0 ? (
+        <EmptyState
+          title="Your library is empty"
+          message="You have not added any games yet. Browse the catalog and add games to start building your shelf."
+          buttonText="Browse Games"
+          buttonLink="/browse"
+        />
+      ) : (
+        <>
+          <LibraryStats library={library} />
+
+          <GameList
+            games={library}
+            emptyMessage="You have not added any games yet."
+            handleRemoveFromLibrary={handleRemoveWithFeedback}
+            handleUpdateStatus={handleUpdateStatus}
+            handleUpdateRating={handleUpdateRating}
+            libraryIds={library.map((game) => game.id)}
+          />
+        </>
+      )}
+    </Container>
+  );
 }
 
 export default LibraryPage;
