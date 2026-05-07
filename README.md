@@ -1,16 +1,54 @@
-# React + Vite
+# Game Shelf
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Game Shelf is a responsive React web application for browsing, organizing, and managing a personal video game library. The app allows users to explore a collection of games, filter them by genre and console, add games to their library or favorites, and track their playing status.
 
-Currently, two official plugins are available:
+This project was built as a final project for CS571 and focuses on React component design, routing, state management, responsive UI layout, and accessible user interaction.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+[View the deployed site here](YOUR_GITHUB_PAGES_LINK_HERE)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Browse a collection of video games in a clean card-based layout
+- Search and filter games by title, genre, and console
+- Add and remove games from a personal library
+- Mark games as favorites
+- Track game status such as not started, currently playing, or completed
+- View game ratings and interactive card details
+- Navigate across multiple pages using React Router
+- Receive visual feedback through alerts and status messages
+- Responsive layout built with React Bootstrap
+- Deployed using GitHub Pages
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+- React
+- JavaScript
+- React Router
+- React Bootstrap
+- HTML
+- CSS
+- GitHub Pages
+
+## Project Structure
+
+The application is organized around reusable React components, including game cards, filters, navigation, library controls, rating selectors, status selectors, and empty-state views. State is managed in the main application and passed down through props to support library and favorites functionality across pages.
+
+## Design Goals
+
+The goal of Game Shelf was to create a simple and usable game-tracking experience while following good UI/UX practices. The design emphasizes clear navigation, readable layouts, responsive spacing, visible system feedback, and avoiding false affordances. Interactive elements are designed to make it clear when a user can click, add, remove, or update a game.
+
+## Accessibility
+
+Game Shelf was designed with accessibility in mind by using clear heading structure, labeled controls, readable contrast, keyboard-friendly navigation, and descriptive visual feedback for user actions.
+
+## Deployment
+
+The app is deployed using GitHub Pages. The production build is generated and published so users can access the application directly in the browser without installing anything locally.
+
+## Author
+
+Amer Salem  
+B.S. Computer Engineering  
+University of Wisconsin-Madison
